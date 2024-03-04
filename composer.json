@@ -1,0 +1,19 @@
+{
+    "name": "mohammed/recipes",
+    "description": "exercice sur les Recettes",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohammed",
+            "email": "elamrani.mohammed95@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
