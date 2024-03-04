@@ -1,5 +1,8 @@
 <?php
-phpinfo();
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Models\Recipe;
@@ -7,24 +10,19 @@ use App\Storage\SessionRecipeStorage;
 use App\Storage\MySqlDatabaseRecipeStorage;
 use App\RecipeManager;
 
-// Session
-session_start();
 
-// Connexion bdd
+session_start();
+// sur mac root & root
 $pdo = new PDO('mysql:host=localhost;dbname=recipe', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// stockage par bdd
-
+// bdd
 $storage = new MySqlDatabaseRecipeStorage($pdo);
-
+// session
 $manager = new RecipeManager($storage);
-
-// Exemple d'ajout d'une recette
-$recipe = new Recipe(null, new DateTime(), 'Poulet Basquaise', 'Description de la recette', 4, 45);
+$recipe = new Recipe(null, new DateTime(), 'Couscous', 'Description de la recette de couscous', 4, 60);
 $manager->addRecipe($recipe);
 
-// Exemple de récupération de toutes les recettes
+// Récupération et affichage de toutes les recettes
 $recipes = $manager->getRecipes();
 echo "<h1>Recettes</h1>";
 foreach ($recipes as $recipe) {
@@ -35,8 +33,3 @@ foreach ($recipes as $recipe) {
     echo "<p>Temps de préparation : " . htmlspecialchars($recipe->getPreparationTime()) . " minutes.</p>";
     echo "</div>";
 }
-
-phpinfo();
-
-
-// Vous pouvez ajouter des exemples similaires pour la mise à jour et la suppression des recettes
